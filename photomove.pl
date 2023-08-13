@@ -11,12 +11,14 @@ my $dir_format = '%Y_%m/%Y_%m_%d/';
 
 sub get_file_extension {
     my $file = shift;
+
     my $ext = $file =~ /\.([^.]+)$/;
     return $ext;
 }
 
 sub is_valid_extension {
     my $file = shift;
+
     my @file_extensions = @_;
     my $ext = get_file_extension($file);
     return grep { lc($ext) eq lc($_) } @file_extensions;
@@ -24,6 +26,7 @@ sub is_valid_extension {
 
 sub get_file_list {
     my $dir = shift;
+
     my @files = ();
     opendir(my $dh, $dir) || die "Can't open $dir: $!";
     while (readdir $dh) {
@@ -38,18 +41,17 @@ sub get_file_list {
             }
         }
     }
+
     return @files;
 }
 
 sub get_file_date {
     my $file = shift;
+
     my $exifTool = new Image::ExifTool;
     my $info = $exifTool->ImageInfo($file);
     my $date = $info->{DateTimeOriginal};
-    if (!defined($date)) {
-        $date = $info->{CreateDate};
-    }
-
+    $date = $info->{CreateDate} if (!defined($date));
     if (!defined($date)) {
         die "Could not find date for $file\n";
     }
@@ -68,6 +70,7 @@ sub move_file {
     $target_dir = $target_dir . '/' . $file_date->strftime($dir_format);
 
     make_path($target_dir) if (! -d $target_dir);
+
     my $target_file = $target_dir . (split('/', $source_file))[-1];
     if (-e $target_file) {
         print "File $target_file already exists, skipping\n";
@@ -81,8 +84,9 @@ sub main {
     die "Usage: $0 <source directory> <target directory>\n" if (scalar(@_) < 2);
 
     my $source_dir = shift;
-    die "Source directory $source_dir does not exist\n" if (! -d $source_dir);
     my $target_dir = shift;
+
+    die "Source directory $source_dir does not exist\n" if (! -d $source_dir);
     die "Target directory $target_dir does not exist\n" if (! -d $target_dir);
 
     my @files = get_file_list($source_dir);
