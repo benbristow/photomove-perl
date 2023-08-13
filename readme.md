@@ -6,7 +6,7 @@ Whipped this up in an hour or so, not production-worthy - use with caution!
 
 ## Usage
 
-```
+```bash
 ./photomove.pl <source folder> <dest folder>
 ```
 
