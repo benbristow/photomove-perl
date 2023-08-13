@@ -11,14 +11,14 @@ my $dir_format = '%Y_%m/%Y_%m_%d/';
 
 sub get_file_extension {
     my $file = shift;
-    my ($ext) = $file =~ /\.([^.]+)$/;
+    my $ext = $file =~ /\.([^.]+)$/;
     return $ext;
 }
 
 sub is_valid_extension {
     my $file = shift;
     my @file_extensions = @_;
-    my ($ext) = get_file_extension($file);
+    my $ext = get_file_extension($file);
     return grep { lc($ext) eq lc($_) } @file_extensions;
 }
 
