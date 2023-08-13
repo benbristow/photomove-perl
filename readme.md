@@ -4,6 +4,12 @@ Simple Perl script to emulate the Windows [PhotoMove](https://www.mjbpix.com/aut
 
 Whipped this up in an hour or so, not production-worthy - use with caution!
 
+## Usage
+
+```
+./photomove.pl <source folder> <dest folder>
+```
+
 ## CPAN dependencies
 
 ```
