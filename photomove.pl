@@ -73,8 +73,8 @@ sub main {
     my $source_dir = shift;
     my $target_dir = shift;
 
-    die "Source directory $source_dir does not exist\n" if (! -d $source_dir);
-    die "Target directory $target_dir does not exist\n" if (! -d $target_dir);
+    die "Source directory $source_dir does not exist\n" unless -d $source_dir;
+    die "Target directory $target_dir does not exist\n" unless -d $target_dir;
 
     my @files = get_file_list($source_dir);
     print "Found " . scalar(@files) . " files\n";
