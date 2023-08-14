@@ -9,8 +9,8 @@ use Image::ExifTool;
 use DateTime::Format::Strptime;
 use File::Path qw(make_path);
 
-my @file_extensions = qw(mp4 cr3);
-my $dir_format = '%Y_%m/%Y_%m_%d/';
+use constant FILE_EXTENSIONS => qw(mp4 cr3);
+use constant DIR_FORMAT => '%Y_%m/%Y_%m_%d/';
 
 sub get_file_extension ($file) {
     my ($ext) = $file =~ /\.([^.]+)$/;
@@ -19,7 +19,7 @@ sub get_file_extension ($file) {
 
 sub is_valid_extension ($file) {
     my $ext = get_file_extension($file);
-    return grep { lc($ext) eq lc($_) } @file_extensions;
+    return grep { lc($ext) eq lc($_) } FILE_EXTENSIONS;
 }
 
 sub get_file_list ($dir) {
@@ -54,7 +54,7 @@ sub get_file_date ($file) {
 
 sub move_file ($source_file, $target_dir) {
     my $file_date = get_file_date($source_file);
-    $target_dir = $target_dir . '/' . $file_date->strftime($dir_format);
+    $target_dir = $target_dir . '/' . $file_date->strftime(DIR_FORMAT);
 
     make_path($target_dir) if (! -d $target_dir);
 
@@ -75,6 +75,7 @@ sub main {
 
     die "Source directory $source_dir does not exist\n" unless -d $source_dir;
     die "Target directory $target_dir does not exist\n" unless -d $target_dir;
+    die "Source and target directories are the same\n" if $source_dir eq $target_dir;
 
     my @files = get_file_list($source_dir);
     print "Found " . scalar(@files) . " files\n";
