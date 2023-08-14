@@ -6,6 +6,15 @@ Simple Perl script to emulate the Windows [PhotoMove](https://www.mjbpix.com/aut
 
 Whipped this up in an hour or so, not production-worthy - use with caution!
 
+Moves files into a directory structure like
+
+```bash
+├── pictures
+│   └── 2023_08
+│       ├── 2023_08_11
+│       │   ├── 250A0668.CR3
+```
+
 ## Usage
 
 * Install [cpanminus](https://metacpan.org/pod/App::cpanminus)
