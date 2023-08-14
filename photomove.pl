@@ -18,7 +18,6 @@ sub get_file_extension {
 
 sub is_valid_extension {
     my $file = shift;
-    my @file_extensions = @_;
 
     my $ext = get_file_extension($file);
     return grep { lc($ext) eq lc($_) } @file_extensions;
@@ -36,7 +35,7 @@ sub get_file_list {
             push @files, get_file_list($file);
         } else {
             my $ext = get_file_extension($file);
-            if (is_valid_extension($file, @file_extensions)) {
+            if (is_valid_extension($file)) {
                 push @files, $file;
             }
         }
