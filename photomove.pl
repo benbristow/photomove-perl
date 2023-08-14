@@ -1,5 +1,8 @@
 #!/usr/bin/env perl
 use strict;
+use warnings;
+use feature qw(signatures);
+no warnings 'experimental::signatures';
 
 use File::Copy;
 use Image::ExifTool;
@@ -9,23 +12,17 @@ use File::Path qw(make_path);
 my @file_extensions = qw(mp4 cr3);
 my $dir_format = '%Y_%m/%Y_%m_%d/';
 
-sub get_file_extension {
-    my $file = shift;
-
+sub get_file_extension ($file) {
     my ($ext) = $file =~ /\.([^.]+)$/;
     return $ext;
 }
 
-sub is_valid_extension {
-    my $file = shift;
-
+sub is_valid_extension ($file) {
     my $ext = get_file_extension($file);
     return grep { lc($ext) eq lc($_) } @file_extensions;
 }
 
-sub get_file_list {
-    my $dir = shift;
-
+sub get_file_list ($dir) {
     my @files = ();
     opendir(my $dh, $dir) || die "Can't open $dir: $!";
     while (readdir $dh) {
@@ -44,9 +41,7 @@ sub get_file_list {
     return @files;
 }
 
-sub get_file_date {
-    my $file = shift;
-
+sub get_file_date ($file) {
     my $exifTool = new Image::ExifTool;
     my $info = $exifTool->ImageInfo($file);
 
@@ -57,10 +52,7 @@ sub get_file_date {
     return $date;
 }
 
-sub move_file {
-    my $source_file = shift;
-    my $target_dir = shift;
-
+sub move_file ($source_file, $target_dir) {
     my $file_date = get_file_date($source_file);
     $target_dir = $target_dir . '/' . $file_date->strftime($dir_format);
 
@@ -75,11 +67,8 @@ sub move_file {
     }
 }
 
-sub main {
-    die "Usage: $0 <source directory> <target directory>\n" if (scalar(@_) < 2);
-
-    my $source_dir = shift;
-    my $target_dir = shift;
+sub main ($source_dir, $target_dir) {
+    die "Usage: $0 <source directory> <target directory>\n" if (! $source_dir || ! $target_dir);
 
     die "Source directory $source_dir does not exist\n" if (! -d $source_dir);
     die "Target directory $target_dir does not exist\n" if (! -d $target_dir);
