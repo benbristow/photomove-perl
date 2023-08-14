@@ -49,12 +49,8 @@ sub get_file_date {
 
     my $exifTool = new Image::ExifTool;
     my $info = $exifTool->ImageInfo($file);
-    my $date = $info->{DateTimeOriginal};
-    $date = $info->{CreateDate} if (!defined($date));
-    if (!defined($date)) {
-        die "Could not find date for $file\n";
-    }
 
+    my $date = $info->{DateTimeOriginal} || $info->{CreateDate} || die "Could not find date for $file\n";
     $date =~ s/(\d+):(\d+):(\d+) (\d+):(\d+):(\d+)/$1-$2-$3 $4:$5:$6/;
     $date = DateTime::Format::Strptime->new(pattern => '%Y-%m-%d %H:%M:%S')->parse_datetime($date);
 
