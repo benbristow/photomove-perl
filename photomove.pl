@@ -12,6 +12,11 @@ use File::Path qw(make_path);
 use constant FILE_EXTENSIONS => qw(mp4 cr3);
 use constant DIR_FORMAT => '%Y_%m/%Y_%m_%d/';
 
+sub print_log ($msg) {
+    my $date = DateTime->now->strftime('%Y-%m-%d %H:%M:%S');
+    print "[$date] $msg\n";
+}
+
 sub get_file_extension ($file) {
     my ($ext) = $file =~ /\.([^.]+)$/;
     return $ext;
@@ -60,9 +65,9 @@ sub move_file ($source_file, $target_dir) {
 
     my $target_file = $target_dir . (split('/', $source_file))[-1];
     if (-e $target_file) {
-        print "File $target_file already exists, skipping\n";
+        print_log("File $target_file already exists, skipping");
     } else {
-        print "Moving $source_file to $target_file\n";
+        print_log("Moving $source_file to $target_file");
         move($source_file, $target_file) || die "Could not move $source_file to $target_file: $!\n";
     }
 }
@@ -78,12 +83,12 @@ sub main {
     die "Source and target directories are the same\n" if $source_dir eq $target_dir;
 
     my @files = get_file_list($source_dir);
-    print "Found " . scalar(@files) . " files\n";
+    print_log("Found " . scalar(@files) . " files");
     foreach my $file (@files) {
         move_file($file, $target_dir);
     }
 
-    print "Done\n";
+    print_log("Done");
 }
 
 main(@ARGV);
