@@ -11,6 +11,7 @@ my $dir_format = '%Y_%m/%Y_%m_%d/';
 
 sub get_file_extension {
     my $file = shift;
+
     my ($ext) = $file =~ /\.([^.]+)$/;
     return $ext;
 }
