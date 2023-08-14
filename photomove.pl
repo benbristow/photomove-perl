@@ -67,8 +67,11 @@ sub move_file ($source_file, $target_dir) {
     }
 }
 
-sub main ($source_dir, $target_dir) {
-    die "Usage: $0 <source directory> <target directory>\n" if (! $source_dir || ! $target_dir);
+sub main {
+    die "Usage: $0 <source directory> <target directory>\n" if (scalar(@_) < 2);
+
+    my $source_dir = shift;
+    my $target_dir = shift;
 
     die "Source directory $source_dir does not exist\n" if (! -d $source_dir);
     die "Target directory $target_dir does not exist\n" if (! -d $target_dir);
