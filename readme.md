@@ -6,13 +6,9 @@ Whipped this up in an hour or so, not production-worthy - use with caution!
 
 ## Usage
 
+* Install [cpanminus](https://metacpan.org/pod/App::cpanminus)
+
 ```bash
+cpanm --cpanfile cpanfile --installdeps . # Install dependencies using cpanminus
 ./photomove.pl <source folder> <dest folder>
-```
-
-## CPAN dependencies
-
-```
-DateTime::Format::Strptime
-Image::ExifTool::Canon
 ```

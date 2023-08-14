@@ -1,0 +1,19 @@
+---
+name: Validate PR
+on: push
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        name: Validate
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
+            - name: Setup Perl environment
+              uses: shogo82148/actions-setup-perl@v1.23.1
+              with:
+                install-modules-with: cpanm
+            - name: Check syntax
+              run: perl -c photomove.pl
