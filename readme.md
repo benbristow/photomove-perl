@@ -24,3 +24,7 @@ pictures
 cpanm --cpanfile cpanfile --installdeps . # Install dependencies using cpanminus
 ./photomove.pl <source folder> <dest folder>
 ```
+
+### Windows
+
+Works with [Strawberry Perl](https://strawberryperl.com/)
