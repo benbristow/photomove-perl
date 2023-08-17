@@ -9,10 +9,11 @@ Whipped this up in an hour or so, not production-worthy - use with caution!
 Moves files into a directory structure like
 
 ```bash
-├── pictures
-│   └── 2023_08
-│       ├── 2023_08_11
-│       │   ├── 250A0668.CR3
+pictures
+└───2023
+    ├───2023_01
+    │   ├───2023_01_11
+    │   │       250A0001.JPG
 ```
 
 ## Usage

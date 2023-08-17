@@ -10,7 +10,7 @@ use DateTime::Format::Strptime;
 use File::Path qw(make_path);
 
 use constant FILE_EXTENSIONS => qw(mp4 cr3);
-use constant DIR_FORMAT => '%Y_%m/%Y_%m_%d/';
+use constant DIR_FORMAT => '%Y/%Y_%m/%Y_%m_%d/';
 
 sub print_log ($msg) {
     my $date = DateTime->now->strftime('%Y-%m-%d %H:%M:%S');
