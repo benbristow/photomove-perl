@@ -10,9 +10,9 @@ Moves files into a directory structure like
 
 ```bash
 pictures
-└───2023
-    ├───2023_01
-    │   ├───2023_01_11
+└───2024
+    ├───2024_01
+    │   ├───2024_01_11
     │   │       250A0001.JPG
 ```
 
